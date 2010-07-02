@@ -22,6 +22,14 @@ class Helper
     "link:#{args.first}"
   end
 
+  def cond_link_to(cond, *args, &block)
+    if cond
+      link_to(*args, &block)
+    else
+      args.first
+    end
+  end
+
   def url_for_file_column(object_name, method, suffix)
     "#{object_name}#{method}#{suffix}.jpg"
   end

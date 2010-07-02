@@ -9,6 +9,9 @@ require 'helper'
 require 'user'
 require 'photo'
 
+# Just for having a better written matcher, but not perfect though.
+class String; alias :started_with? :start_with?; end
+
 describe "Helper" do
   before(:each) do
     @helper = Helper.new
@@ -112,6 +115,35 @@ describe "Helper" do
           @helper.display_photo(@profile, "100x100", {}, {:show_default => false}, true).should == "NO DEFAULT"
         end
       end
+    end
+  end
+
+  describe "link_to" do
+
+    it "should return the parameter prefixed by link:" do
+      @helper.link_to("some_path").should be_started_with("link:")
+    end
+  end
+
+  describe "image_tag" do
+
+    it "should return the first parameter prefixed by img:" do
+      @helper.image_tag("a_file.jpg").should be_started_with("img:")
+    end
+  end
+
+  describe "cond_link_to" do
+
+    it "should not call link_to if the condition is false" do
+      @helper.should_not_receive(:link_to)
+      @helper.cond_link_to(false,"some text")
+    end
+
+    it "should call link_to if the condition is true" do
+      arg = "some text"
+      proc = Proc.new{}
+      @helper.should_receive(:link_to).with(arg, &proc)
+      @helper.cond_link_to(true,arg,&proc)
     end
   end
 end
