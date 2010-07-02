@@ -35,7 +35,7 @@ class Helper
   end
 
   def profile_path(profile)
-    profile.to_s
+    profile
   end
   # End of the extra methods.
   
@@ -65,11 +65,7 @@ class Helper
       if profile.has_valid_photo?
         @user = profile.user
         img_tag = image_tag(url_for_file_column("user", "photo", size), html)
-        if link
-          return link_to(img_tag, profile_path(profile) )
-        else
-          return img_tag
-        end
+        return cond_link_to(link, img_tag, profile_path(profile))
       else
         show_default_image ? default_photo(profile, size, {}, link) : 'NO DEFAULT'
       end
@@ -84,10 +80,6 @@ class Helper
               else
                 image_tag("user#{size}.jpg", html)
               end
-    if link
-      link_to(img_tag, profile_path(profile))
-    else
-      img_tag
-    end
+    cond_link_to(link, img_tag, profile_path(profile))
   end
 end
