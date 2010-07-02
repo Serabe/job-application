@@ -37,24 +37,22 @@ class Helper
   def profile_path(profile)
     profile
   end
+
+  def self.add_size_for_photo(name, size)
+    define_method "display_#{name}_photo" do |*args|
+      raise ArgumentError, 'wrong number of arguments (0 for 1)' if args.empty?
+      raise ArgumentError, 'wrong number of arguments (#{args.size} for 3)' if args.size > 3
+      args.push *[{}]*(3-args.size)
+      display_photo(arg[0], image_size(args[0], size), args[1], args[2])
+    end
+  end
   # End of the extra methods.
+
+  add_size_for_photo :small, "32x32"
+  add_size_for_photo :medium, "48x48"
+  add_size_for_photo :large, "64x64"
+  add_size_for_photo :huge, "200x200"
   
-  def display_small_photo(profile, html = {}, options = {})
-    display_photo(profile, image_size(profile, "32x32"), html, options)
-  end
-
-  def display_medium_photo(profile, html = {}, options = {})
-    display_photo(profile, image_size(profile, "48x48"), html, options)
-  end
-
-  def display_large_photo(profile, html = {}, options = {}, link = true)
-    display_photo(profile, image_size(profile, "64x64"), html, options, link)
-  end
-
-  def display_huge_photo(profile, html = {}, options = {}, link = true)
-    display_photo(profile, image_size(profile, "200x200"), html, options, link)
-  end
-
   def display_photo(profile, size, html = {}, options = {}, link = true)
     return image_tag("wrench.png") unless profile  # this should not happen
 

@@ -16,6 +16,14 @@ describe "Helper" do
   before(:each) do
     @helper = Helper.new
   end
+
+  it "should respond to all image sizes" do
+    %w{small medium large huge}.each do |size|
+      @helper.should respond_to(:"display_#{size}_photo")
+    end   
+  end
+  
+  
   describe "display_photo" do
     it "should return the wrench if there is no profile" do
       @helper.display_photo(nil, "100x100", {}, {}, true).should == "img:wrench.png"
