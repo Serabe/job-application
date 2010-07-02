@@ -38,20 +38,30 @@ class Helper
     profile
   end
 
-  def self.add_size_for_photo(name, size)
-    define_method "display_#{name}_photo" do |*args|
-      raise ArgumentError, 'wrong number of arguments (0 for 1)' if args.empty?
-      raise ArgumentError, 'wrong number of arguments (#{args.size} for 3)' if args.size > 3
-      args.push *[{}]*(3-args.size)
-      display_photo(arg[0], image_size(args[0], size), args[1], args[2])
+  class << self
+    def method_missing(name, *args)
+      super unless name.to_s =~ /^\w+_size$/ # Check name
+      size_name = name.to_s[0..-6]
+
+      # Check args
+      raise ArgumentError, 'wrong number of arguments (#{args.size} for 1)' unless args.size == 1
+      raise ArgumentError, 'argument must be a String matching \d+x\d+' unless args[0] =~ /^\d+x\d+$/
+
+      # Create method
+      define_method "display_#{size_name}_photo" do |*brgs|
+        raise ArgumentError, 'wrong number of arguments (0 for 1)' if brgs.empty?
+        raise ArgumentError, 'wrong number of arguments (#{brgs.size} for 3)' if brgs.size > 3
+        brgs.push *[{}]*(3-brgs.size)
+        display_photo(brgs[0], image_size(brgs[0], args[0]), brgs[1], brgs[2])
+      end
     end
   end
   # End of the extra methods.
 
-  add_size_for_photo :small, "32x32"
-  add_size_for_photo :medium, "48x48"
-  add_size_for_photo :large, "64x64"
-  add_size_for_photo :huge, "200x200"
+  small_size "32x32"
+  medium_size "48x48"
+  large_size "64x64"
+  huge_size "200x200"
   
   def display_photo(profile, size, html = {}, options = {}, link = true)
     return image_tag("wrench.png") unless profile  # this should not happen
