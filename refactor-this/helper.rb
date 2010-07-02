@@ -63,7 +63,7 @@ class Helper
                            # in a view.
       cond_link_to(link, image_tag(url_for_file_column("user", "photo", size), html), profile_path(profile))
     else
-      !(options[:show_default] == false) ? default_photo(profile, size, {}, link) : 'NO DEFAULT'
+      !(options[:show_default] == false) ? default_photo(profile, size, html, link) : ''
     end
   end
 
