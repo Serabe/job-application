@@ -70,18 +70,15 @@ class Helper
   end
 
   def default_photo(profile, size, html={}, link = true)
+    img_tag = if profile.user && profile.user.rep?
+                image_tag("user190x119.jpg", html)
+              else
+                image_tag("user#{size}.jpg", html)
+              end
     if link
-      if profile.user && profile.user.rep?
-        link_to(image_tag("user190x119.jpg", html), profile_path(profile) )
-      else
-        link_to(image_tag("user#{size}.jpg", html), profile_path(profile) )
-      end
+      link_to(img_tag, profile_path(profile))
     else
-      if profile.user.rep?
-        image_tag("user190x119.jpg", html)
-      else
-        image_tag("user#{size}.jpg", html)
-      end
+      img_tag
     end
   end
 end
