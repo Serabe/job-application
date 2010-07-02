@@ -56,10 +56,11 @@ class Helper
     if profile && profile.user
       if profile.has_valid_photo?
         @user = profile.user
+        img_tag = image_tag(url_for_file_column("user", "photo", size), html)
         if link
-          return link_to(image_tag(url_for_file_column("user", "photo", size), html), profile_path(profile) )
+          return link_to(img_tag, profile_path(profile) )
         else
-          return image_tag(url_for_file_column("user", "photo", size), html)
+          return img_tag
         end
       else
         show_default_image ? default_photo(profile, size, {}, link) : 'NO DEFAULT'
