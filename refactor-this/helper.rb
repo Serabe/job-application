@@ -1,3 +1,5 @@
+require 'active_support/core_ext/hash/reverse_merge'
+
 class Helper
   def self.foo
     "foo"
@@ -11,6 +13,24 @@ class Helper
     end
   end
 
+  # Some methods I need to fake Rails behavior.
+  def image_tag(file, options={})
+    "img:#{file}"
+  end
+
+  def link_to(*args, &block)
+    "link:#{args.first}"
+  end
+
+  def url_for_file_column(object_name, method, suffix)
+    "#{object_name}#{method}#{suffix}.jpg"
+  end
+
+  def profile_path(profile)
+    profile.to_s
+  end
+  # End of the extra methods.
+  
   def display_small_photo(profile, html = {}, options = {})
     display_photo(profile, image_size(profile, "32x32"), html, options)
   end
@@ -34,7 +54,7 @@ class Helper
     html.reverse_merge!(:class => 'thumbnail', :size => size, :title => "Link to #{profile.name}")
 
     if profile && profile.user
-      if profile.user && profile.user.photo && File.exists?(profile.user.photo)
+      if profile.has_valid_photo?
         @user = profile.user
         if link
           return link_to(image_tag(url_for_file_column("user", "photo", size), html), profile_path(profile) )
@@ -42,16 +62,16 @@ class Helper
           return image_tag(url_for_file_column("user", "photo", size), html)
         end
       else
-        show_default_image ? default_photo(profile, size, {}, link) : ''
+        show_default_image ? default_photo(profile, size, {}, link) : 'NO DEFAULT'
       end
     end
 
-    show_default_image ? default_photo(profile, size, {}, link) : ''
+    show_default_image ? default_photo(profile, size, {}, link) : 'NO DEFAULT'
   end
 
   def default_photo(profile, size, html={}, link = true)
     if link
-      if profile.user.rep?
+      if profile.user && profile.user.rep?
         link_to(image_tag("user190x119.jpg", html), profile_path(profile) )
       else
         link_to(image_tag("user#{size}.jpg", html), profile_path(profile) )

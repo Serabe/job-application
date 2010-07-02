@@ -15,7 +15,7 @@ describe "Helper" do
   end
   describe "display_photo" do
     it "should return the wrench if there is no profile" do
-      @helper.display_photo(nil, "100x100", {}, {}, true).should == "wrench.png"
+      @helper.display_photo(nil, "100x100", {}, {}, true).should == "img:wrench.png"
     end
         
     describe "With a profile, user and photo requesting a link" do
@@ -29,7 +29,7 @@ describe "Helper" do
         @profile.stub!(:has_valid_photo?).and_return(true)
       end
       it "should return a link" do
-        @helper.display_photo(@profile, "100x100", {}, {}, true).should == "this link"
+        @helper.display_photo(@profile, "100x100", {}, {}, true).should == "link:img:userphoto100x100.jpg"
       end
     end
     
@@ -44,7 +44,7 @@ describe "Helper" do
         @profile.stub!(:has_valid_photo?).and_return(true)
       end
       it "should just an image" do
-        @helper.display_photo(@profile, "100x100", {}, {}, false).should == "just image"
+        @helper.display_photo(@profile, "100x100", {}, {}, false).should == "img:userphoto100x100.jpg"
       end
     end
     
@@ -54,7 +54,7 @@ describe "Helper" do
         @profile.name = "Clayton"
       end
       it "return a default" do
-        @helper.display_photo(@profile, "100x100", {}, {}, true).should == "default link 100x100"
+        @helper.display_photo(@profile, "100x100", {}, {}, true).should == "link:img:user100x100.jpg"
       end
     end
     
@@ -71,7 +71,7 @@ describe "Helper" do
           @user.stub!(:rep?).and_return(true)
         end
         it "return a default link" do
-          @helper.display_photo(@profile, "100x100", {}, {}, true).should == "default link 190x119"
+          @helper.display_photo(@profile, "100x100", {}, {}, true).should == "link:img:user190x119.jpg"
         end
         
       end
@@ -81,7 +81,7 @@ describe "Helper" do
           @user.stub!(:rep?).and_return(false)
         end
         it "return a default link" do
-          @helper.display_photo(@profile, "100x100", {}, {}, true).should == "default link 100x100"
+          @helper.display_photo(@profile, "100x100", {}, {}, true).should == "link:img:user100x100.jpg"
         end
       end
     end
@@ -98,7 +98,7 @@ describe "Helper" do
         before(:each) do
           @user.stub!(:rep?).and_return(true)
         end
-        it "return a default link" do
+        it "don't return a default link" do
           @helper.display_photo(@profile, "100x100", {}, {:show_default => false}, true).should == "NO DEFAULT"
         end
         
@@ -108,12 +108,10 @@ describe "Helper" do
         before(:each) do
           @user.stub!(:rep?).and_return(false)
         end
-        it "return a default link" do
-          @helper.display_photo(@profile, "100x100", {}, {}, true).should == "default link 100x100"
+        it "don't return a default link" do
+          @helper.display_photo(@profile, "100x100", {}, {:show_default => false}, true).should == "NO DEFAULT"
         end
       end
     end
-    
-    
   end
 end
