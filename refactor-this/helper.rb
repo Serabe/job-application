@@ -61,7 +61,7 @@ class Helper
     show_default_image = !(options[:show_default] == false)
     html.reverse_merge!(:class => 'thumbnail', :size => size, :title => "Link to #{profile.name}")
 
-    if profile && profile.user
+    if profile.user
       if profile.has_valid_photo?
         @user = profile.user
         img_tag = image_tag(url_for_file_column("user", "photo", size), html)
