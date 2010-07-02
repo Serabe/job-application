@@ -58,7 +58,6 @@ class Helper
   def display_photo(profile, size, html = {}, options = {}, link = true)
     return image_tag("wrench.png") unless profile  # this should not happen
 
-    show_default_image = !(options[:show_default] == false)
     html.reverse_merge!(:class => 'thumbnail', :size => size, :title => "Link to #{profile.name}")
 
     if profile.has_valid_photo?
@@ -66,7 +65,7 @@ class Helper
                            # in a view.
       cond_link_to(link, image_tag(url_for_file_column("user", "photo", size), html), profile_path(profile))
     else
-      show_default_image ? default_photo(profile, size, {}, link) : 'NO DEFAULT'
+      !(options[:show_default] == false) ? default_photo(profile, size, {}, link) : 'NO DEFAULT'
     end
   end
 
