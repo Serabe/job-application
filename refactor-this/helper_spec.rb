@@ -110,7 +110,7 @@ describe "Helper" do
           @user.stub!(:rep?).and_return(true)
         end
         it "don't return a default link" do
-          @helper.display_photo(@profile, "100x100", {}, {:show_default => false}, true).should == "NO DEFAULT"
+          @helper.display_photo(@profile, "100x100", {}, {:show_default => false}, true).should == ""
         end
         
       end
@@ -120,7 +120,7 @@ describe "Helper" do
           @user.stub!(:rep?).and_return(false)
         end
         it "don't return a default link" do
-          @helper.display_photo(@profile, "100x100", {}, {:show_default => false}, true).should == "NO DEFAULT"
+          @helper.display_photo(@profile, "100x100", {}, {:show_default => false}, true).should == ""
         end
       end
     end
