@@ -1,12 +1,6 @@
 h1. So... you'd like to work for "Integrum":http://integrumtech.com?
 
-*Please note that these tests all require some basic
- "Ruby":http://ruby-lang.org knowledge. If you don't know ruby, "take
- a few minutes to learn the
- basics":http://www.ruby-lang.org/en/documentation/quickstart/.  You
- will need to have Ruby, "rubygems":http://rubygems.org,
- "RSpec":http://rspec.info , "Factory
- Girl":http://github.com/thoughtbot/factory_girl and "redgreen":http://github.com/mynyml/redgreen installed.*
+*Please note that these tests all require some basic "Ruby":http://ruby-lang.org knowledge. If you don't know ruby, "take a few minutes to learn the basics":http://www.ruby-lang.org/en/documentation/quickstart/.  You will need to have Ruby, "rubygems":http://rubygems.org,  "RSpec":http://rspec.info , "Factory Girl":http://github.com/thoughtbot/factory_girl and "redgreen":http://github.com/mynyml/redgreen installed.*
 
 h3. In order to be considered for a position at Integrum, you must follow these steps.
 
