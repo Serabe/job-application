@@ -3,6 +3,11 @@ require 'uri'
 require 'net/http'
 require 'yaml'
 
+# I could've use any ruby library for dealing with
+# the GitHub API. I decided not to do so because it would
+# require you to install it. In case you want me to show you
+# a code example using either octopi or octopussy, just let me know.
+
 TEMPLATE_FILE = File.join(File.dirname(__FILE__), 'template.html.erb')
 OUTPUT_FILE = File.join(File.dirname(__FILE__), 'rails_committers.html')
 USER_ID = :rails
