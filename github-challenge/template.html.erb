@@ -16,7 +16,10 @@
         </div>
         <ul class="commits">
           <% @email_to_commits[email].each do |commit|%>
-                <li class="commit"><%= commit %></li>
+                <li class="commit">
+                  <b>Commit</b>: <a href="<%= commit[:url] %>"><%= commit[:id][0..17]%></a><br/>
+                  <%= commit[:message] %>
+                </li>
           <% end %>
         </ul>
       </div>

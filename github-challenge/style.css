@@ -1,26 +1,41 @@
 body, p, h1, h2, h3, h4, h5, h6, ul, li, form{
-margin:0;
-padding:0;
-line-height:18px;
+   margin:0;
+   padding:0;
+   line-height:18px;
+   background-color: #6BE400;
 }
 p, h2, h3, h4, h5, h6{
-margin-bottom:18px;
+   margin-bottom:18px;
 }
 
-boddy {
+#page {
    display: block;
    width: 900px;
    margin: 0px auto;
 }
 
 ul {
-   list-style-type: none;
+   background-color: #65A5D1;
+}
+
+li {
+   margin: 5px 15px;
 }
 
 .committer {
+   background-color: #65A5D1;
    border: 2px line;
+   padding: 5px;
+   margin: 5px 0px;
+   border: 1px solid #24587C;
+}
+
+.committer .name{
+   font-size: 16px;
 }
 
 .commit {
+   background-color: #65A5D1;
    border: 1px line;
+   font-size: 12px;
 }

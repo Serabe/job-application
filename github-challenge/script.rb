@@ -24,7 +24,9 @@ class LastCommits
     commits.each do |ci|
       email = ci["author"]["email"].to_sym
       @email_to_name[email] = ci["author"]["name"] unless @email_to_name[email]
-      (@email_to_commits[email] ||= []) << ci["message"]
+      (@email_to_commits[email] ||= []) << { :message => ci["message"],
+        :url => ci["url"],
+        :id  => ci["id"]}
     end
   end
 
