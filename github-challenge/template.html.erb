@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Rails committers</title>
+    <meta http-equiv="Content-Type" content="text/html;
+    charset=UTF-8"/>
+    <link rel="stylesheet" href="style.css"
+          type="text/css" media="screen" charset="utf-8" />
+
+  </head>
+  <body>
+    <div id="page">
+    <% @email_to_name.each do |email, name| %>
+      <div class="committer">
+        <div class="name">
+          <%= name %>
+        </div>
+        <ul class="commits">
+          <% @email_to_commits[email].each do |commit|%>
+                <li class="commit">
+                  <b>Commit</b>: <a href="<%= commit[:url] %>"><%= commit[:id][0..17]%></a><br/>
+                  <%= commit[:message] %>
+                </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    </div>
+  </body>
+</html>
